@@ -1,0 +1,17 @@
+{
+  "name": "tech-challenge-tripstack",
+  "version": "1.0.0",
+  "description": "Tech challenge for TripStack",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "Anastasiya Melentyeva",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
