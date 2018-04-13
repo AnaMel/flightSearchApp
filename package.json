@@ -12,6 +12,7 @@
   "author": "Anastasiya Melentyeva",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "express-static": "^1.2.5"
   }
 }
