@@ -4,11 +4,7 @@ var port = 3000;
 var fs = require("fs");
 var path = require('path');
 
-// var path = require("path");
 app.use(express.static(__dirname + '/public'));
-// app.use("/scripts",  express.static(path.join(__dirname, '/public')));
-
-
 app.get("/", (req, res) => {
     res.sendFile(path.resolve(__dirname + "/index.html"));
 });
@@ -20,7 +16,6 @@ function(err){console.log(err);});
 
 // Split on row
 f = f.split("\n");
-// console.log(f);
 
 // Get first row for column headers
 headers = f.shift().split(",");
@@ -30,8 +25,6 @@ f.forEach(function(d){
     // Loop through each row
     tmp = {}
     row = d.split(",")
-    // console.log(row);
-    
     for(var i = 0; i < headers.length; i++){
         upd = row[i].replace(/['"]+/g, '');
         tmp[headers[i]] = upd;
@@ -40,22 +33,11 @@ f.forEach(function(d){
     json.push(tmp);
 });
 
-
-// data = JSON.stringify(json);
-// console.log(data);
-
 app.get("/searchFlights/:origin/:destination", (req, res) => {
+    var flights =[];
     json.map(function(obj){
         if(obj["Origin"] === req.params.origin && obj["Destination"] === req.params.destination) {
-            res.send({
-                Origin: obj["Origin"],
-                Destination: obj["Destination"],
-                DepartureTime: obj["Departure Time"],
-                DestinationTime: obj["Destination Time"],
-                Price: obj["Price"],
-                status: 200
-                // {Origin} --> {Destination} ({Departure Time} --> {Destination Time}) - {Price}
-            });
+            flights.push(obj);
         }
         // Add support for no match
 
@@ -72,6 +54,9 @@ app.get("/searchFlights/:origin/:destination", (req, res) => {
 
 
     })
+    res.send({
+        flights
+    });
     // res.send({
     //     status: 200
     // });
