@@ -67,6 +67,12 @@ file3.forEach(function(d){
 // Merge objects of flight options
 let result = (json.concat(json2)).concat(json3);
 
+// Replace "-" with "/" in Departure and Destination Time properties
+result.map(function(obj){
+    obj["Departure Time"] = obj["Departure Time"].replace(/-/g, '/');
+    obj["Destination Time"] = obj["Destination Time"].replace(/-/g, '/');
+})
+
 // Create /searchFlights endpoint
 app.get("/searchFlights/:origin/:destination", (req, res) => {
     var flights =[];
