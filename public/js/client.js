@@ -1,13 +1,13 @@
 // Create object to contain variables and functions
 const userInput = {};
 
+// Function to retrieve input values
 userInput.retrieveInputValues = function() {
     userInput.origin=$('input[name=origin]').val();
     userInput.destination=$('input[name=destination]').val();
-    console.log(userInput.origin,userInput.destination);
+    // Once retrived call the api endpoint
     userInput.getFlights(userInput.origin,userInput.destination);
 }
-
 
 // Create AJAX request to /searchFlights endpoint
 userInput.getFlights = function(origin, destination){
@@ -23,12 +23,21 @@ userInput.getFlights = function(origin, destination){
     });
 };
 
+// Function to display returned results
 userInput.displayOptions = (flights, origin, destination) => {
-    console.log(flights);
+    // Clean .results container before displaying the results
     $('.results').html('');
+
+    // Filter out duplicate records
+    flights = flights.filter((flight, index, self) => index === self.findIndex((t) => (
+        t.Origin === flight.Origin && t.Destination === flight.Destination && t.Price === flight.Price && t["Departure Time"] === flight["Departure Time"]&& t["Destination Time"] === flight["Destination Time"]
+    )))
+
+    // Sort results by price ASC
     flights.sort(function (a, b) {
-        return a.Price.substr(1) - b.Price.substr(1)
+        return a.Price.substr(1) - b.Price.substr(1) 
     });
+
     // If no results are returned display error message
     if (flights.length < 1) {
         const errorMessageContent = `No flights found for ${origin} --> ${destination}`;
@@ -38,18 +47,20 @@ userInput.displayOptions = (flights, origin, destination) => {
     else {
         console.log(flights.length);
         for (i = 0; i < flights.length; i++) {
-            const origin = $('<p>').text(flights[i].Origin);
+            const origin = $('<p>').text(`${flights[i].Origin} -->`);
             const destination = $('<p>').text(flights[i].Destination);
+            const departureTime = $('<p>').text(`(${flights[i]["Departure Time"]} -->`);
+            const destinationTime = $('<p>').text(`${flights[i]["Destination Time"]})`);
             const price = $('<p>').text(flights[i].Price);
-            const optionsContainer = $(`<div>`).append(origin,destination,price);
+            const optionsContainer = $(`<div>`).append(origin,destination,departureTime,destinationTime,price);
             $('.results').append(optionsContainer);
+            // {Origin} --> {Destination} ({Departure Time} --> {Destination Time}) - {Price}
         }
     }
 }
 
-
 // When document is ready..
 $(function () {
-    console.log('hooray');
+    // Add event listener on the .search button
     $(".search").on("click", function() {userInput.retrieveInputValues()});
 });
