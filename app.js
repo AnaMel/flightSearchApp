@@ -52,7 +52,7 @@ app.get("/searchFlights/:origin/:destination", (req, res) => {
 
     // Assign a value of filtered array to the variable "flights"
     flights = 
-    // by using .filter method to return a brand new array containing elements which satisfy the conditions on line#67
+    // by using .filter method to return a brand new array containing elements which satisfy the conditions on line#65
     flights.filter(
         // provide the following arguments to the callback function
         // current element being processed in the array
@@ -61,7 +61,7 @@ app.get("/searchFlights/:origin/:destination", (req, res) => {
             index,
                 // original flights array
                 self) => 
-                    // index of the "flight" element equals index of the first element in the original "flights" (self) array that satisfies the condition on line#69 (this will only return first instance of an object and will ignore the remaining duplicate records)
+                    // index of the "flight" element equals index of the first element in the original "flights" (self) array that satisfies the condition on line#67 (this will only return first instance of an object and will ignore the remaining duplicate records)
                     index === self.findIndex((t) => (
                         // returns index of the first element in "flights" array which properties equal to property values of the current element being processes (flight) 
                         t.Origin === flight.Origin && t.Destination === flight.Destination && t.Price === flight.Price && t["Departure Time"] === flight["Departure Time"]&& t["Destination Time"] === flight["Destination Time"]
