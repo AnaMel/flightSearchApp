@@ -47,7 +47,7 @@ app.get("/searchFlights/:origin/:destination", (req, res) => {
         }
     })
     flights.sort(function (a, b) {
-        return a.Price.substr(1) - b.Price.substr(1) 
+        return a.Price.substr(1) - b.Price.substr(1) || Date.parse(a["Departure Time"]) - Date.parse(b["Departure Time"])
     });
 
     // Assign a value of filtered array to the variable "flights"

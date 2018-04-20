@@ -28,16 +28,6 @@ userInput.displayOptions = (flights, origin, destination) => {
     // Clean .results container before displaying the results
     $('.results').html('');
 
-    // Filter out duplicate records
-    // flights = flights.filter((flight, index, self) => index === self.findIndex((t) => (
-    //     t.Origin === flight.Origin && t.Destination === flight.Destination && t.Price === flight.Price && t["Departure Time"] === flight["Departure Time"]&& t["Destination Time"] === flight["Destination Time"]
-    // )))
-
-    // Sort results by price ASC
-    // flights.sort(function (a, b) {
-    //     return a.Price.substr(1) - b.Price.substr(1) 
-    // });
-
     // If no results are returned display error message
     if (flights.length < 1) {
         const errorMessageContent = `No flights found for ${origin} --> ${destination}`;
